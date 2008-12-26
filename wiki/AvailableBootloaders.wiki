@@ -19,3 +19,5 @@ http://tinybldlinux.sourceforge.net/what.html - linux command line loader for ti
 http://piklab.wiki.sourceforge.net/Command-line+Utility+ - can talk to various bootloaders
 
 http://picloader.cvs.sourceforge.net/viewvc/picloader/bootloader/ - usb bootloader, encryption support
+
+http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1824&appnote=en012031 - microchip an851
