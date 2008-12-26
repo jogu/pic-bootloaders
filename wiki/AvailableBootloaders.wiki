@@ -17,3 +17,5 @@ http://tinybldlinux.sourceforge.net/what.html - linux command line loader for ti
 
 
 http://piklab.wiki.sourceforge.net/Command-line+Utility+ - can talk to various bootloaders
+
+http://picloader.cvs.sourceforge.net/viewvc/picloader/bootloader/ - usb bootloader, encryption support
