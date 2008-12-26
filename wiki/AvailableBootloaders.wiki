@@ -7,4 +7,4 @@ This is a list of all the available Microchip PIC bootloaders and major features
 
 = Details =
 
-foo
+http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm
