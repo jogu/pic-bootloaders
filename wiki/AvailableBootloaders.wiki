@@ -14,3 +14,6 @@ http://forum.microchip.com/tm.aspx?m=126770 - wombat encrypted serial
 http://www.fatih.edu.tr/~onur/PIC18F452/Colt%20Bootloader/Colt%20PIC18F%20Bootloader%20Page.htm
 
 http://tinybldlinux.sourceforge.net/what.html - linux command line loader for tiny boot loader
+
+
+http://piklab.wiki.sourceforge.net/Command-line+Utility+ - can talk to various bootloaders
