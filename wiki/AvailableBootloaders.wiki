@@ -21,3 +21,9 @@ http://piklab.wiki.sourceforge.net/Command-line+Utility+ - can talk to various b
 http://picloader.cvs.sourceforge.net/viewvc/picloader/bootloader/ - usb bootloader, encryption support
 
 http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1824&appnote=en012031 - microchip an851
+
+= Other lists of bootloaders =
+
+http://mcuee.blogspot.com/2007/11/i-am-trying-to-collect-list-of.html
+
+http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm
