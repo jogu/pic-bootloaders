@@ -7,7 +7,7 @@ This is a list of all the available Microchip PIC bootloaders and major features
 
 = Details =
 
-http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm - tinyboot loader: good, by PC app source code not available
+http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm - tinyboot loader: good, but PC app source code not available
 
 http://forum.microchip.com/tm.aspx?m=126770 - wombat encrypted serial
 
