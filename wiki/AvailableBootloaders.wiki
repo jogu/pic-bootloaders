@@ -7,11 +7,11 @@ This is a list of all the available Microchip PIC bootloaders and major features
 
 = Details =
 
-http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm
+http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm - tinyboot loader: good, by PC app source code not available
 
 http://forum.microchip.com/tm.aspx?m=126770 - wombat encrypted serial
 
-http://www.fatih.edu.tr/~onur/PIC18F452/Colt%20Bootloader/Colt%20PIC18F%20Bootloader%20Page.htm
+http://www.fatih.edu.tr/~onur/PIC18F452/Colt%20Bootloader/Colt%20PIC18F%20Bootloader%20Page.htm - Colt bootloader - good, but no source code available for PIC or PC
 
 http://tinybldlinux.sourceforge.net/what.html - linux command line loader for tiny boot loader
 
