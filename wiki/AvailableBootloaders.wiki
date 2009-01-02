@@ -23,14 +23,16 @@ http://forum.microchip.com/tm.aspx?m=126770 - wombat encrypted serial: very good
 
 http://www.fatih.edu.tr/~onur/PIC18F452/Colt%20Bootloader/Colt%20PIC18F%20Bootloader%20Page.htm - Colt bootloader - good, but no source code available for PIC or PC
 
-http://tinybldlinux.sourceforge.net/what.html - linux command line loader for tiny boot loader
 
 http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1824&appnote=en012031 - microchip an851 - good, but PC app is in obsolete Visual Basic 6.0 and bootloader doesn't run when PIC boots.
 
+http://picloader.cvs.sourceforge.net/viewvc/picloader/bootloader/ - usb bootloader, encryption support
+
+= Related applications =
 
 http://piklab.wiki.sourceforge.net/Command-line+Utility+ - can talk to various bootloaders
 
-http://picloader.cvs.sourceforge.net/viewvc/picloader/bootloader/ - usb bootloader, encryption support
+http://tinybldlinux.sourceforge.net/what.html - linux command line loader for tiny boot loader
 
 = Other lists of Microchip PIC bootloaders =
 
