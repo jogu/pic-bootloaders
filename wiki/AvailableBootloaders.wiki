@@ -39,3 +39,5 @@ http://tinybldlinux.sourceforge.net/what.html - linux command line loader for ti
 http://mcuee.blogspot.com/2007/11/i-am-trying-to-collect-list-of.html
 
 http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm
+
+http://www.piclist.com/techref/microchip/devprogs.htm#bootloaders
