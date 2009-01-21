@@ -6,14 +6,15 @@ This is a list of all the available Microchip PIC bootloaders and major features
 
 = Desirable boot loader properties =
 
-There are a number of properties that a boot loader should have:
+For a bootloader to be useful in a commercial project, there are a number of properties that it should have:
 
   * boot loader runs from the PIC boot block which can be protected (this helps ensure the bootloader never becomes corrupted)
   * PIC Source code should be available (otherwise it can't be ported to new PICs, different baud rates, etc)
-  * PC side source code should be available (so you can produce a professional looking firmware upgrade tool)
+  * PC side source code should be available (so you can produce a professional looking firmware upgrade tool or alter it if there is a special way to enter the bootloader on your product)
   * The bootloader should run briefly when the PIC boots (so that you can recover if the underlying application has been corrupted)
+  * The data written should be verified
 
-Obviously, ideally, it should be free.
+Obviously, ideally, it should be free too.
 
 = Details of free bootloaders for Microchip PICs =
 
