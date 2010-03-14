@@ -45,3 +45,5 @@ http://mcuee.blogspot.com/2007/11/i-am-trying-to-collect-list-of.html
 http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm
 
 http://www.piclist.com/techref/microchip/devprogs.htm#bootloaders
+
+http://www.microchip.com/forums/tm.aspx?m=424874
