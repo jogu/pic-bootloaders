@@ -28,6 +28,8 @@ http://mrmackey.no-ip.org/elektronik/ds30loader/ - good. GPL licensed but can be
 
 http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1824&appnote=en012031 - microchip an851 - good, but PC app is in obsolete Visual Basic 6.0 and bootloader doesn't run when PIC boots.
 
+http://www.microchip.com/stellent/idcplg?IdcService=SS_GET_PAGE&nodeId=1824&appnote=en546974 - microchip AN1310 - now looks very good, though should not be used with code protection as it will allow the firmware to be read out
+
 http://picloader.cvs.sourceforge.net/viewvc/picloader/bootloader/ - usb bootloader, encryption support
 
 
