@@ -2,7 +2,7 @@
 	LIST      P=18F2550	; change also: Configure->SelectDevice from Mplab
 ; 20MHzQuartz / 5 * 24 / 4 => 24MHz	; check _CONFIG1
 xtal EQU 24000000		; 'xtal' here is resulted frequency (is no longer quartz frequency)
-baud EQU 115200			; the desired baud rate
+baud EQU 57600			; the desired baud rate
 	
 	;********************************************************************
 	;	Tiny Bootloader		18F*55 series		Size=100words
@@ -13,22 +13,44 @@ baud EQU 115200			; the desired baud rate
 	;	-----+----------------
 	;	28pin|	2455	2550
 	;	40pin|	4455	4550
-	#include "../icdpictypes.inc"	;takes care of: #include "p18fxxx.inc",  max_flash, IdTypePIC
-	#include "../spbrgselect.inc"	; RoundResult and baud_rate
+	#include "icdpictypes.inc"	;takes care of: #include "p18fxxx.inc",  max_flash, IdTypePIC
+	#include "spbrgselect.inc"	; RoundResult and baud_rate
 
-		#define first_address max_flash-200		;100 words
-	__CONFIG _CONFIG1L, _PLLDIV_5_1L & _CPUDIV_OSC3_PLL4_1L & _USBDIV_2_1L
-	__CONFIG _CONFIG1H, _FOSC_HSPLL_HS_1H & _FCMEM_OFF_1H & _IESO_OFF_1H 
-	__CONFIG _CONFIG2L, _PWRT_ON_2L & _BOR_OFF_2L ; _VREGEN_OFF_2L
-	__CONFIG _CONFIG2H, _WDT_OFF_2H & _WDTPS_1_2H 
-	__CONFIG _CONFIG3H, _MCLRE_ON_3H & _PBADEN_OFF_3H & _CCP2MX_OFF_3H
-	__CONFIG _CONFIG4L, _DEBUG_OFF_4L & _LVP_OFF_4L & _STVREN_OFF_4L & _XINST_OFF_4L
-	__CONFIG _CONFIG5L, _CP0_OFF_5L & _CP1_OFF_5L & _CP2_OFF_5L
-	__CONFIG _CONFIG5H, _CPB_OFF_5H & _CPD_OFF_5H
-	__CONFIG _CONFIG6L, _WRT0_OFF_6L & _WRT1_OFF_6L & _WRT2_OFF_6L & _WRT3_OFF_6L
-	__CONFIG _CONFIG6H, _WRTB_OFF_6H & _WRTC_OFF_6H & _WRTD_OFF_6H
-	__CONFIG _CONFIG7L, _EBTR0_OFF_7L & _EBTR1_OFF_7L & _EBTR2_OFF_7L & _EBTR3_OFF_7L
-	__CONFIG _CONFIG7H, _EBTRB_OFF_7H
+	CONFIG	PLLDIV = 1           ;No prescale (4 MHz oscillator input drives PLL directly)
+	CONFIG	CPUDIV = OSC3_PLL4   ;[OSC1/OSC2 Src: /3][96 MHz PLL Src: /4]
+	CONFIG	FOSC = HSPLL_HS      ;XT oscillator, PLL enabled, XT used by USB
+	CONFIG	PWRT = ON            ;PWRT enabled
+	CONFIG	FCMEN = OFF          ;Fail-Safe Clock Monitor disabled
+	CONFIG	IESO = OFF           ;Oscillator Switchover mode disabled
+	CONFIG	WDT = OFF            ;HW Disabled - SW Controlled
+	CONFIG	BOR = ON             ;Brown-out Reset enabled in hardware only (SBOREN is disabled)
+	CONFIG	BORV = 0             ;Maximum setting
+	CONFIG	VREGEN = OFF         ;USB voltage regulator disabled
+	CONFIG	MCLRE = ON           ;MCLR pin enabled; RE3 input pin disabled
+	CONFIG	LVP = OFF            ;Single-Supply ICSP disabled
+	CONFIG	XINST = OFF          ;Instruction set extension and Indexed Addressing mode disabled (Legacy mode)
+	CONFIG	STVREN = ON          ;Stack full/underflow will cause Reset
+	CONFIG  PBADEN = OFF         ;PORTB<4:0> pins are configured as digital I/O on Reset
+	CONFIG	CCP2MX = ON          ;CCP2 input/output is multiplexed with RC1
+	CONFIG	LPT1OSC = OFF        ;Timer1 configured for higher power operation
+
+	CONFIG	DEBUG = OFF
+	CONFIG CP0 = ON
+	CONFIG CP1 = ON
+	CONFIG CP2 = ON
+	CONFIG CPB = ON
+	CONFIG CPD = ON
+
+	CONFIG WRTB = ON ; Write protect boot block
+	CONFIG WRTC = ON ; Write protect configuration registers
+
+	; protect all blocks against table reads; this prevents someone loading
+	; firmware with the sole purpose of reading out the current firmware
+	CONFIG EBTR0 = ON
+	CONFIG EBTR1 = ON
+	CONFIG EBTR2 = ON
+	CONFIG EBTR3 = ON
+	CONFIG EBTRB = ON
 
 
 ;----------------------------- PROGRAM ---------------------------------
@@ -50,11 +72,21 @@ SendL macro car
 	movlw car
 	movwf TXREG
 	endm
+
 	
 ;0000000000000000000000000 RESET 00000000000000000000000000
+	ORG	0x0000			; Re-map Reset vector
+	bra	IntrareBootloader
+	
 
-		ORG     0x0000
-		GOTO    IntrareBootloader
+	ORG	0x0008
+VIntH
+	bra	RVIntH			; Re-map Interrupt vector
+
+	ORG	0x0018
+VIntL
+	bra	RVIntL			; Re-map Interrupt vector
+
 
 ;view with TabSize=4
 ;&&&&&&&&&&&&&&&&&&&&&&&   START     &&&&&&&&&&&&&&&&&&&&&&
@@ -64,12 +96,6 @@ SendL macro car
 ;PC_cfg			C1h			U OR 80h	H		L		1		byte	crc
 ;PIC_response:	   type `K`
 	
-	ORG first_address			;space to deposit first 4 instr. of user prog.
-	nop
-	nop
-	nop
-	nop
-	org first_address+8
 IntrareBootloader
 	;skip TRIS to 0 C6			;init serial port
 	movlw b'00100100'
@@ -174,7 +200,7 @@ Write
 
 
 Receive
-	movlw xtal/2000000+1	; for 20MHz => 11 => 1second delay
+	movlw xtal/2000000/5+1	; for 20MHz => 11/5 => 1/5 second delay
 	movwf cnt1
 rpt2						
 	clrf cnt2
@@ -196,10 +222,21 @@ notrcv
 	;timeout:
 way_to_exit
 	bcf	RCSTA,	SPEN			; deactivate UART
-	bra first_address
+	bra RVReset
 ;*************************************************************
 ; After reset
 ; Do not expect the memory to be zero,
 ; Do not expect registers to be initialised like in catalog.
+
+; remapped reset & interrupt handler locations for user code
+; to be written into
+	ORG	0x800
+RVReset					
+
+	ORG	0x808
+RVIntH
+
+	ORG	0x818
+RVIntL
 
             END
