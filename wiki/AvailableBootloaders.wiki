@@ -16,7 +16,11 @@ For a bootloader to be useful in a commercial project, there are a number of pro
 
 Obviously, ideally, it should be free too.
 
-= Details of free bootloaders for Microchip PICs =
+= Our bootloader =
+
+You can find the bootloader and PC app that we use with PIC18F2550 chips by clicking the "Downloads" or "Source" tabs at the top of the page. It is based on the tiny bootloader, and uses the same protocol. The PC app has been written from scratch in portable C.
+
+= Details of other bootloaders for Microchip PICs =
 
 http://www.etc.ugal.ro/cchiculita/software/picbootloader.htm - tinyboot loader: good, but PC app source code not available
 
